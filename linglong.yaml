@@ -1,0 +1,29 @@
+version: "1"
+
+package:
+  id: io.github.ShaderGen
+  name: ShaderGen
+  version: 3.5.0.1
+  kind: app
+  description: |
+    ShaderGen is a tool that automatically generates OpenGL Shading Language shaders that duplicate fixed function OpenGL behavior.
+
+command:
+  - /opt/apps/io.github.ShaderGen/files/bin/ShaderGen
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/mojocorp/ShaderGen.git
+    version: master
+    commit: 30925949ec56b588181eecd379391f70f39388a6
+
+build: |
+  cd /project/linglong/sources/ShaderGen.git
+  mkdir build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install -j$(nproc --all)
